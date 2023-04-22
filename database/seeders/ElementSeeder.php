@@ -74,6 +74,30 @@ class ElementSeeder extends Seeder
         ]);
 
         DB::table('GEN_Elemento')->insert([
+            'ELEM_Nombre'       => 'CAJA NOMBRE',
+            'ELEM_Tipo'         => 'T',
+            'ELEM_ValorGeneral' => 'Nombre Persona',
+            'ELEM_ValorAhorro'  => 'Nombre Persona',
+            'ELEM_ValorCredito' => 'Nombre Persona',
+            'ELEM_ValorCampo'   => 'nombrePersona',
+            'ELEM_Icono'        => 'fa-solid fa-mobile-screen',
+            'created_at' 		=> Carbon::now(),
+            'updated_at' 		=> Carbon::now()
+        ]);
+
+        DB::table('GEN_Elemento')->insert([
+            'ELEM_Nombre'       => 'CAJA ADICIONAL',
+            'ELEM_Tipo'         => 'T',
+            'ELEM_ValorGeneral' => 'Texto Adicional',
+            'ELEM_ValorAhorro'  => 'Texto Adicional',
+            'ELEM_ValorCredito' => 'Texto Adicional',
+            'ELEM_ValorCampo'   => 'textoAdicional',
+            'ELEM_Icono'        => 'fa-solid fa-mobile-screen',
+            'created_at' 		=> Carbon::now(),
+            'updated_at' 		=> Carbon::now()
+        ]);
+
+        DB::table('GEN_Elemento')->insert([
             'ELEM_Nombre'       => 'COMBO TIPO INGRESOS',
             'ELEM_Tipo'         => 'S',
             'ELEM_ValorGeneral' => 'Tipo de Ingresos',

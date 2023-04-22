@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('GEN_Distrito', function (Blueprint $table) {
             $table->bigIncrements('DIST_Id');
-            $table->text('DIST_Valor')->unique();
-            $table->text('DIST_Nombre')->unique();
+            $table->string('DIST_Valor',250)->unique();
+            $table->string('DIST_Nombre',250)->unique();
             $table->bigInteger('DEPA_Id')->unsigned()->required();
             $table->timestamps();
             $table->softDeletes();

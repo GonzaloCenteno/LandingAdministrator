@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -12,7 +13,13 @@
     <link rel="icon" type="image/png" href="{{ asset('img/icons/logo-cc.ico') }}"/>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/bootstrap.min.css') }}">
-	
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+	<style>
+        .fontawesomeSelect {
+            font-family: 'FontAwesome'
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -35,17 +42,7 @@
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
+                            
                         @else
                         <li class="nav-item">
                             <a href="{{ route('landing.index') }}" class="nav-link text-muted h5" href="#">Landing</a>
@@ -78,6 +75,7 @@
     </div>
     
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/fontawsome.min.js') }}" crossorigin="anonymous"></script>
     @yield('script-js')
 </body>
 </html>

@@ -61,6 +61,16 @@ class FormElementSeeder extends Seeder
             'ELEM_Id'       => 9
         ]);
 
+        DB::table('GEN_FormularioElemento')->insert([
+            'FORM_Id'       => 1,
+            'ELEM_Id'       => 10
+        ]);
+
+        DB::table('GEN_FormularioElemento')->insert([
+            'FORM_Id'       => 1,
+            'ELEM_Id'       => 11
+        ]);
+
         
 
         DB::table('GEN_FormularioElemento')->insert([

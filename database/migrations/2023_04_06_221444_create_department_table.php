@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('GEN_Departamento', function (Blueprint $table) {
             $table->bigIncrements('DEPA_Id');
-            $table->text('DEPA_Valor')->unique();
-            $table->text('DEPA_Nombre')->unique();
+            $table->string('DEPA_Valor',250)->unique();
+            $table->string('DEPA_Nombre',250)->unique();
             $table->timestamps();
             $table->softDeletes();
         });

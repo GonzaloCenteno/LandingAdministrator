@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('GEN_Elemento', function (Blueprint $table) {
             $table->bigIncrements('ELEM_Id');
-            $table->text('ELEM_Nombre')->unique();
+            $table->string('ELEM_Nombre',250)->unique();
             $table->enum('ELEM_Tipo',['L','I','T','S','C','R']);
             $table->text('ELEM_ValorAhorro')->nullable();
             $table->text('ELEM_ValorGeneral')->nullable();

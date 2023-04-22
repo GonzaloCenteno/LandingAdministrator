@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FormElementSeeder::class);
         $this->call(DepartmentSeeder::class);
         $this->call(DistritoSeeder::class);
+        $this->call(IconSeeder::class);
     }
 }

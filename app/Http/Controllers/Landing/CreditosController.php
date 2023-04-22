@@ -7,8 +7,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\FormularioElemento;
 use App\Models\Departamento;
-use App\Enums\FormularioTipos;
-use App\Enums\ElementoTipos;
 
 class CreditosController extends Controller
 {
@@ -23,7 +21,7 @@ class CreditosController extends Controller
     }
 
     private function obtenerDatosLanding() {
-        return FormularioElemento::with('elemento')->where('FORM_Id',FormularioTipos::CREDITOS->label())->orderBy('ELEM_Id','asc')->get();
+        return FormularioElemento::with('elemento')->where('FORM_Id',3)->orderBy('ELEM_Id','asc')->get();
     }
 
     private function obtenerDepartamentos() {
@@ -31,7 +29,7 @@ class CreditosController extends Controller
     }
 
     private function obtenerPortada() {
-        return FormularioElemento::with('elemento')->where([['FORM_Id',FormularioTipos::CREDITOS->label()],['ELEM_Id',ElementoTipos::IMAGENPORTADA->label()]])->first();
+        return FormularioElemento::with('elemento')->where([['FORM_Id',3],['ELEM_Id',2]])->first();
     }
 
     public function show($id,Request $request)

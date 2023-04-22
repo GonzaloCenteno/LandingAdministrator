@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('GEN_Formulario', function (Blueprint $table) {
-            $table->bigIncrements('FORM_Id');
-            $table->string('FORM_Nombre',250)->unique();
+        Schema::create('GEN_Icono', function (Blueprint $table) {
+            $table->bigIncrements('ICON_Id');
+            $table->string('ICON_Valor',250);
+            $table->string('ICON_Nombre',250);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('GEN_Formulario');
+        Schema::dropIfExists('GEN_Icono');
     }
 };

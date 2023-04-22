@@ -8,6 +8,7 @@ use App\Http\Controllers\Administracion\LandingController;
 use App\Http\Controllers\Administracion\DepartamentoController;
 use App\Http\Controllers\Administracion\DistritoController;
 use App\Http\Controllers\Administracion\FormularioController;
+use App\Http\Controllers\Administracion\FormularioLandingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,13 +21,14 @@ use App\Http\Controllers\Administracion\FormularioController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/login', function () {
     return view('auth.login');
-})->name('main');
+})->name('login');
 
 Route::get('/creditos', [CreditosController::class, 'index']);
 Route::get('/ahorros', [AhorrosController::class, 'index']);
-Route::get('/general', [GeneralController::class, 'index']);
+Route::get('/', [GeneralController::class, 'index']);
+Route::resource('formularioLanding', FormularioLandingController::class);
 
 Auth::routes();
 

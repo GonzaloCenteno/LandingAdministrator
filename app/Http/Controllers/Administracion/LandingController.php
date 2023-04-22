@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\FormularioElemento;
-use App\Enums\FormularioTipos;
+use App\Models\Formulario;
 use Carbon\Carbon;
 use Response;
 
@@ -20,16 +20,16 @@ class LandingController extends Controller
     }
 
     private function obtenerTipoFormulario() {
-        return FormularioTipos::cases();
+        return Formulario::get();
     }
 
     public function show($valor,Request $request)
     {
-        if($valor == FormularioTipos::GENERAL->label()):
+        if($valor == 1):
             return $this->obtenerDatosFormularioGeneral();
-        elseif($valor == FormularioTipos::AHORROS->label()):
+        elseif($valor == 2):
             return $this->obtenerDatosFormularioAhorro();
-        elseif($valor == FormularioTipos::CREDITOS->label()):
+        elseif($valor == 3):
             return $this->obtenerDatosFormularioCredito();
         else:
             return Response::json(false);
@@ -50,7 +50,7 @@ class LandingController extends Controller
             CASE WHEN FOEL.FORM_Id IS NULL THEN 0 ELSE 1 END AS TipoActivacion 
         FROM gen_elemento ELEM
         LEFT OUTER JOIN gen_formularioelemento FOEL ON FOEL.ELEM_Id = ELEM.ELEM_Id AND FOEL.FORM_Id = :formulario
-        ORDER BY ELEM.ELEM_Id ASC', [ 'formulario' => FormularioTipos::GENERAL->label() ]);
+        ORDER BY ELEM.ELEM_Id ASC', [ 'formulario' => 1 ]);
     }
 
     private function obtenerDatosFormularioAhorro()
@@ -67,7 +67,7 @@ class LandingController extends Controller
             CASE WHEN FOEL.FORM_Id IS NULL THEN 0 ELSE 1 END AS TipoActivacion 
         FROM gen_elemento ELEM
         LEFT OUTER JOIN gen_formularioelemento FOEL ON FOEL.ELEM_Id = ELEM.ELEM_Id AND FOEL.FORM_Id = :formulario
-        ORDER BY ELEM.ELEM_Id ASC', [ 'formulario' => FormularioTipos::AHORROS->label() ]);
+        ORDER BY ELEM.ELEM_Id ASC', [ 'formulario' => 2 ]);
     }
 
     private function obtenerDatosFormularioCredito()
@@ -84,7 +84,7 @@ class LandingController extends Controller
             CASE WHEN FOEL.FORM_Id IS NULL THEN 0 ELSE 1 END AS TipoActivacion 
         FROM gen_elemento ELEM
         LEFT OUTER JOIN gen_formularioelemento FOEL ON FOEL.ELEM_Id = ELEM.ELEM_Id AND FOEL.FORM_Id = :formulario
-        ORDER BY ELEM.ELEM_Id ASC', [ 'formulario' => FormularioTipos::CREDITOS->label() ]);
+        ORDER BY ELEM.ELEM_Id ASC', [ 'formulario' => 3 ]);
     }
     
     public function store(Request $request)

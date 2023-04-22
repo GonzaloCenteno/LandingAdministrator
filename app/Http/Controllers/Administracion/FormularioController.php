@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Administracion;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\Models\FormularioElemento;
+use App\Models\Formulario;
 use App\Models\Elemento;
-use App\Enums\FormularioTipos;
-use App\Enums\ElementoTipos;
 use Illuminate\Support\Str;
 use Response;
 use File;
@@ -24,16 +22,16 @@ class FormularioController extends Controller
     }
 
     private function obtenerTipoFormulario() {
-        return FormularioTipos::cases();
+        return Formulario::get();
     }
 
     public function show($valor,Request $request)
     {
-        if($valor == FormularioTipos::GENERAL->label()):
+        if($valor == 1):
             return $this->obtenerDatosFormularioGeneral();
-        elseif($valor == FormularioTipos::AHORROS->label()):
+        elseif($valor == 2):
             return $this->obtenerDatosFormularioAhorro();
-        elseif($valor == FormularioTipos::CREDITOS->label()):
+        elseif($valor == 3):
             return $this->obtenerDatosFormularioCredito();
         else:
             return Response::json(false);
@@ -57,11 +55,11 @@ class FormularioController extends Controller
     
     public function store(Request $request)
     {
-        if($request->FORM_Id == FormularioTipos::GENERAL->label()):
+        if($request->FORM_Id == 1):
             return $this->modificarDatosFormularioGeneral($request);
-        elseif($request->FORM_Id == FormularioTipos::AHORROS->label()):
+        elseif($request->FORM_Id == 2):
             return $this->modificarDatosFormularioAhorro($request);
-        elseif($request->FORM_Id == FormularioTipos::CREDITOS->label()):
+        elseif($request->FORM_Id == 3):
             return $this->modificarDatosFormularioCredito($request);
         else:
             return Response::json(false);
@@ -73,15 +71,40 @@ class FormularioController extends Controller
         try{
             $imagen = $this->agregar_imagen($request->file('imagen'));
 
-            Elemento::where('ELEM_Id',ElementoTipos::TITULO->label())
+            Elemento::where('ELEM_Id',1)
             ->update([
-                'ELEM_ValorGeneral' => strtoupper($request['titulo'])
+                'ELEM_ValorGeneral' => $request['titulo']
+            ]);
+
+            Elemento::where('ELEM_Id',3)
+            ->update([
+                'ELEM_ValorGeneral' => $request['dni']
+            ]);
+
+            Elemento::where('ELEM_Id',4)
+            ->update([
+                'ELEM_ValorGeneral' => $request['correoElectronico']
+            ]);
+
+            Elemento::where('ELEM_Id',5)
+            ->update([
+                'ELEM_ValorGeneral' => $request['numeroCelular']
+            ]);
+
+            Elemento::where('ELEM_Id',6)
+            ->update([
+                'ELEM_ValorGeneral' => $request['nombrePersona']
+            ]);
+
+            Elemento::where('ELEM_Id',7)
+            ->update([
+                'ELEM_ValorGeneral' => $request['textoAdicional']
             ]);
 
             if($imagen)
             {
-                File::delete((Elemento::select('ELEM_ValorGeneral')->where('ELEM_Id',ElementoTipos::IMAGENPORTADA->label())->first())->ELEM_ValorGeneral);
-                Elemento::where('ELEM_Id',ElementoTipos::IMAGENPORTADA->label())
+                File::delete((Elemento::select('ELEM_ValorGeneral')->where('ELEM_Id',2)->first())->ELEM_ValorGeneral);
+                Elemento::where('ELEM_Id',2)
                 ->update([
                     'ELEM_ValorGeneral' => $imagen
                 ]);
@@ -104,15 +127,40 @@ class FormularioController extends Controller
         try{
             $imagen = $this->agregar_imagen($request->file('imagen'));
 
-            Elemento::where('ELEM_Id',ElementoTipos::TITULO->label())
+            Elemento::where('ELEM_Id',1)
             ->update([
-                'ELEM_ValorAhorro' => strtoupper($request['titulo'])
+                'ELEM_ValorAhorro' => $request['titulo']
+            ]);
+
+            Elemento::where('ELEM_Id',3)
+            ->update([
+                'ELEM_ValorAhorro' => $request['dni']
+            ]);
+
+            Elemento::where('ELEM_Id',4)
+            ->update([
+                'ELEM_ValorAhorro' => $request['correoElectronico']
+            ]);
+
+            Elemento::where('ELEM_Id',5)
+            ->update([
+                'ELEM_ValorAhorro' => $request['numeroCelular']
+            ]);
+
+            Elemento::where('ELEM_Id',6)
+            ->update([
+                'ELEM_ValorAhorro' => $request['nombrePersona']
+            ]);
+
+            Elemento::where('ELEM_Id',7)
+            ->update([
+                'ELEM_ValorAhorro' => $request['textoAdicional']
             ]);
 
             if($imagen)
             {
-                File::delete((Elemento::select('ELEM_ValorAhorro')->where('ELEM_Id',ElementoTipos::IMAGENPORTADA->label())->first())->ELEM_ValorAhorro);
-                Elemento::where('ELEM_Id',ElementoTipos::IMAGENPORTADA->label())
+                File::delete((Elemento::select('ELEM_ValorAhorro')->where('ELEM_Id',2)->first())->ELEM_ValorAhorro);
+                Elemento::where('ELEM_Id',2)
                 ->update([
                     'ELEM_ValorAhorro' => $imagen
                 ]);
@@ -135,15 +183,40 @@ class FormularioController extends Controller
         try{
             $imagen = $this->agregar_imagen($request->file('imagen'));
 
-            Elemento::where('ELEM_Id',ElementoTipos::TITULO->label())
+            Elemento::where('ELEM_Id',1)
             ->update([
-                'ELEM_ValorCredito' => strtoupper($request['titulo'])
+                'ELEM_ValorCredito' => $request['titulo']
+            ]);
+
+            Elemento::where('ELEM_Id',3)
+            ->update([
+                'ELEM_ValorCredito' => $request['dni']
+            ]);
+
+            Elemento::where('ELEM_Id',4)
+            ->update([
+                'ELEM_ValorCredito' => $request['correoElectronico']
+            ]);
+
+            Elemento::where('ELEM_Id',5)
+            ->update([
+                'ELEM_ValorCredito' => $request['numeroCelular']
+            ]);
+
+            Elemento::where('ELEM_Id',6)
+            ->update([
+                'ELEM_ValorCredito' => $request['nombrePersona']
+            ]);
+
+            Elemento::where('ELEM_Id',7)
+            ->update([
+                'ELEM_ValorCredito' => $request['textoAdicional']
             ]);
 
             if($imagen)
             {
-                File::delete((Elemento::select('ELEM_ValorCredito')->where('ELEM_Id',ElementoTipos::IMAGENPORTADA->label())->first())->ELEM_ValorCredito);
-                Elemento::where('ELEM_Id',ElementoTipos::IMAGENPORTADA->label())
+                File::delete((Elemento::select('ELEM_ValorCredito')->where('ELEM_Id',2)->first())->ELEM_ValorCredito);
+                Elemento::where('ELEM_Id',2)
                 ->update([
                     'ELEM_ValorCredito' => $imagen
                 ]);

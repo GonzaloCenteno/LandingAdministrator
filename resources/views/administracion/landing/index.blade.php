@@ -6,8 +6,8 @@
         <div class="col-6 pb-5">
             <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="tipoFormulario" id="tipoFormulario">
                 <option value="0">Seleccione un Tipo Formulario:</option>
-                @foreach ($formularios as $tipos)
-                    <option value="{{ $tipos->value }}">{{ $tipos->name }}</option>    
+                @foreach ($formularios as $formulario)
+                    <option value="{{ $formulario->FORM_Id }}">{{ $formulario->FORM_Nombre }}</option>    
                 @endforeach
             </select>
         </div>

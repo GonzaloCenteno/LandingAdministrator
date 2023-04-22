@@ -23,7 +23,7 @@ class AhorrosController extends Controller
     }
 
     private function obtenerDatosLanding() {
-        return FormularioElemento::with('elemento')->where('FORM_Id',FormularioTipos::AHORROS->label())->orderBy('ELEM_Id','asc')->get();
+        return FormularioElemento::with('elemento')->where('FORM_Id',2)->orderBy('ELEM_Id','asc')->get();
     }
 
     private function obtenerDepartamentos() {
@@ -31,7 +31,7 @@ class AhorrosController extends Controller
     }
 
     private function obtenerPortada() {
-        return FormularioElemento::with('elemento')->where([['FORM_Id',FormularioTipos::AHORROS->label()],['ELEM_Id',ElementoTipos::IMAGENPORTADA->label()]])->first();
+        return FormularioElemento::with('elemento')->where([['FORM_Id',2],['ELEM_Id',2]])->first();
     }
 
     public function show($id,Request $request)
