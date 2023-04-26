@@ -44,7 +44,7 @@ class ElementSeeder extends Seeder
             'ELEM_ValorAhorro'  => 'Documento de Identidad',
             'ELEM_ValorCredito' => 'Documento de Identidad',
             'ELEM_ValorCampo'   => 'dni',
-            'ELEM_Icono'        => 'fa-regular fa-address-card',
+            'ELEM_Icono'        => 'fa-address-card/fa-address-card/fa-address-card',
             'created_at' 		=> Carbon::now(),
             'updated_at' 		=> Carbon::now()
         ]);
@@ -56,7 +56,7 @@ class ElementSeeder extends Seeder
             'ELEM_ValorAhorro'  => 'Correo Electrónico',
             'ELEM_ValorCredito' => 'Correo Electrónico',
             'ELEM_ValorCampo'   => 'correoElectronico',
-            'ELEM_Icono'        => 'fa-regular fa-envelope',
+            'ELEM_Icono'        => 'fa-envelope/fa-envelope/fa-envelope',
             'created_at' 		=> Carbon::now(),
             'updated_at' 		=> Carbon::now()
         ]);
@@ -68,7 +68,7 @@ class ElementSeeder extends Seeder
             'ELEM_ValorAhorro'  => 'Número de Celular',
             'ELEM_ValorCredito' => 'Número de Celular',
             'ELEM_ValorCampo'   => 'numeroCelular',
-            'ELEM_Icono'        => 'fa-solid fa-mobile-screen',
+            'ELEM_Icono'        => 'fa-mobile-screen/fa-mobile-screen/fa-mobile-screen',
             'created_at' 		=> Carbon::now(),
             'updated_at' 		=> Carbon::now()
         ]);
@@ -80,7 +80,7 @@ class ElementSeeder extends Seeder
             'ELEM_ValorAhorro'  => 'Nombre Persona',
             'ELEM_ValorCredito' => 'Nombre Persona',
             'ELEM_ValorCampo'   => 'nombrePersona',
-            'ELEM_Icono'        => 'fa-solid fa-mobile-screen',
+            'ELEM_Icono'        => 'fa-address-card/fa-envelope/fa-mobile-screen',
             'created_at' 		=> Carbon::now(),
             'updated_at' 		=> Carbon::now()
         ]);
@@ -92,7 +92,7 @@ class ElementSeeder extends Seeder
             'ELEM_ValorAhorro'  => 'Texto Adicional',
             'ELEM_ValorCredito' => 'Texto Adicional',
             'ELEM_ValorCampo'   => 'textoAdicional',
-            'ELEM_Icono'        => 'fa-solid fa-mobile-screen',
+            'ELEM_Icono'        => 'fa-address-card/fa-envelope/fa-mobile-screen',
             'created_at' 		=> Carbon::now(),
             'updated_at' 		=> Carbon::now()
         ]);

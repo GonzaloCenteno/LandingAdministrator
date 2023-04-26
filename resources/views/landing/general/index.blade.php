@@ -21,7 +21,7 @@
                 @case('T')
                     <div class="wrap-input100 validate-input" style="border: none;	border-bottom: 2px solid #ff0000;">
                         <input class="input100" type="text" autocomplete="off" name="{{ $dato->elemento->ELEM_ValorCampo }}" id="{{ $dato->elemento->ELEM_ValorCampo }}" placeholder="{{ $dato->elemento->ELEM_ValorGeneral }}">
-                        <span class="focus-input100" ><i class="{{ $dato->elemento->ELEM_Icono }}"></i></span>
+                        <span class="focus-input100" ><i class="fa-solid {{ $dato->elemento->icono[1] }}"></i></span>
                     </div><label id="lblError{{ $dato->elemento->ELEM_ValorCampo }}" class="invisible error"></label>
                     @break
 
