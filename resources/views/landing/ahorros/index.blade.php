@@ -81,8 +81,16 @@
 
 @section('script-js')
 <script type="text/javascript">
-    document.getElementById("elemento_INGRESO").remove();
-    document.getElementById("elemento_DEPARTAMENTO").style.display = 'none';
+    
+    if(document.getElementById("elemento_INGRESO") != null)
+    {
+        document.getElementById("elemento_INGRESO").remove();
+    }
+    if(document.getElementById("elemento_DEPARTAMENTO") != null)
+    {
+        document.getElementById("elemento_DEPARTAMENTO").style.display = 'none';
+    }
+    
 	function traerDatosDistrito(ELEM_ValorAuxiliar,valor)
     {
         let contenedorFormulario = document.getElementById("elemento_DEPARTAMENTO");
@@ -192,8 +200,15 @@
                 
                 let rspta = JSON.parse(response);
 
-                document.getElementById("lblErrordistrito_INGRESO").style.display = 'none';
-                document.getElementById("lblErrordistrito_DEPARTAMENTO").style.display = 'none';
+                if(document.getElementById("lblErrordistrito_INGRESO") != null)
+                {
+                    document.getElementById("lblErrordistrito_INGRESO").style.display = 'none';
+                }
+
+                if(document.getElementById("lblErrordistrito_DEPARTAMENTO") != null)
+                {
+                    document.getElementById("lblErrordistrito_DEPARTAMENTO").style.display = 'none';
+                }
                 
                 if(rspta.status){
                     document.getElementById("gracias").style.display = "block";
@@ -312,7 +327,9 @@
                     }
                 }
                 
-            }).catch(error => console.log(error))
+            }).catch(error => 
+                console.log(error)
+            )
     });
 
 </script>
