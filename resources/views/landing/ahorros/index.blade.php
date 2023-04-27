@@ -51,7 +51,7 @@
                         <label class="contact100-form-checkbox" for="{{ $dato->elemento->ELEM_ValorCampo }}">
                         <input id="{{ $dato->elemento->ELEM_ValorCampo }}" type="checkbox" value="yes" name="{{ $dato->elemento->ELEM_ValorCampo }}">
                             @if($dato->elemento->ELEM_ValorAuxiliar === 'REF')
-                                <a href="autorizacion.pdf"  target="_blank">{{ $dato->elemento->ELEM_ValorAhorro }}</a>
+                                <a href="{{ asset('img/autorizacion.pdf') }}" target="_blank">{{ $dato->elemento->ELEM_ValorAhorro }}</a>
                             @else
                                 {{ $dato->elemento->ELEM_ValorAhorro }}
                             @endif
