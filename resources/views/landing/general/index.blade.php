@@ -28,7 +28,7 @@
                 @case('S')
                     <div class="wrap-input100 validate-input" style="height: 72px;">	
                         <label for="{{ $dato->elemento->ELEM_ValorCampo }}" class="options">
-                        <select class="select-css" name="{{ $dato->elemento->ELEM_ValorCampo }}" id="{{ $dato->elemento->ELEM_ValorCampo }}" onchange="traerDatosDistrito('{{ $dato->elemento->ELEM_ValorAuxiliar }}',this.value)">
+                        <select class="select-css" name="{{ $dato->elemento->ELEM_ValorCampo }}" id="{{ $dato->elemento->ELEM_ValorCampo }}" @if($dato->elemento->ELEM_ValorAuxiliar === 'DEPARTAMENTO') onchange="traerDatosDistrito('{{ $dato->elemento->ELEM_ValorAuxiliar }}',this.value)" @endif>
                             <option value="" hidden>{{ $dato->elemento->ELEM_ValorGeneral }}</option>
                             @if($dato->elemento->ELEM_ValorAuxiliar === 'INGRESO')
                                 <option value="dependiente">Dependiente</option>
@@ -41,9 +41,9 @@
                         </select>
                         </label>
                     </div>
-                    <label id="lblError{{ $dato->elemento->ELEM_ValorCampo }}" class="invisible error"></label>
+                    <label id="lblError{{ $dato->elemento->ELEM_ValorCampo }}" class="invisible error pt-0 mt-0"></label>
                     <div class="wrap-input100 validate-input" id="elemento_{{ $dato->elemento->ELEM_ValorAuxiliar }}" style="height: 72px;"></div>
-                    <label id="lblErrordistrito_{{ $dato->elemento->ELEM_ValorAuxiliar }}" class="invisible error"></label>
+                    <label id="lblErrordistrito_{{ $dato->elemento->ELEM_ValorAuxiliar }}" class="invisible error pt-0 mt-0"></label>
                     @break
 
                 @case('C')
@@ -128,18 +128,56 @@
     
     document.getElementById('btnContinuar').addEventListener('click', (event) => {
         var token = document.head.querySelector("[name='csrf-token'][content]").content;
-        let tipoDepartamento = document.getElementById("departamento").value;
+        let Rdni = document.getElementById("dni");
+        let RcorreoElectronico = document.getElementById("correoElectronico");
+        let RnumeroCelular = document.getElementById("numeroCelular");
+        let RnombrePersona = document.getElementById("nombrePersona");
+        let RtextoAdicional = document.getElementById("textoAdicional");
+        let RtipoIngresos = document.getElementById("tipoIngresos");
+        let Rdepartamento = document.getElementById("departamento");
+        let Racepto = document.getElementById("acepto");
+        let Rcondiciones = document.getElementById("condiciones");
+        
         let formData = new FormData();
-            formData.append('dni', document.getElementById("dni").value);
-            formData.append('correoElectronico', document.getElementById("correoElectronico").value);
-            formData.append('numeroCelular', document.getElementById("numeroCelular").value);
-            formData.append('tipoIngresos', document.getElementById("tipoIngresos").value);
-            formData.append('departamento', document.getElementById("departamento").value);
-            if(tipoDepartamento == 'lima'){
-                formData.append('distrito', document.getElementById("distrito").value);
+            if(Rdni != null) {
+                formData.append('dni', Rdni.value);
             }
-            formData.append('acepto', document.getElementById("acepto").checked);
-            formData.append('condiciones', document.getElementById("condiciones").checked);
+
+            if(RcorreoElectronico != null) {
+                formData.append('correoElectronico', RcorreoElectronico.value);
+            }
+
+            if(RnumeroCelular != null) {
+                formData.append('numeroCelular', RnumeroCelular.value);
+            }
+
+            if(RnombrePersona != null) {
+                formData.append('nombrePersona', RnombrePersona.value);
+            }
+
+            if(RtextoAdicional != null) {
+                formData.append('textoAdicional', RtextoAdicional.value);
+            }
+
+            if(RtipoIngresos != null) {
+                formData.append('tipoIngresos', RtipoIngresos.value);
+            }
+            
+            if(Rdepartamento != null) {
+                formData.append('departamento', Rdepartamento.value);
+
+                if(Rdepartamento.value == 'lima'){
+                    formData.append('distrito', document.getElementById("distrito").value);
+                }
+            }
+
+            if(Racepto != null) {
+                formData.append('acepto', Racepto.checked);
+            }
+
+            if(Rcondiciones != null) {
+                formData.append('condiciones', Rcondiciones.checked);
+            }
       
             let url = "{{ route('formularioLanding.store') }}";
             fetch(url, {
@@ -154,7 +192,7 @@
                 
                 let rspta = JSON.parse(response);
 
-                document.getElementById("lblErrordistrito_INGRESO").remove();
+                document.getElementById("lblErrordistrito_INGRESO").style.display = 'none';
                 document.getElementById("lblErrordistrito_DEPARTAMENTO").style.display = 'none';
                 
                 if(rspta.status){
@@ -163,66 +201,102 @@
                     document.getElementById("formulario").style.display = "none";
                 } else {
                     if(rspta.messages.dni != undefined){
-                        lblErrordni.classList.remove('invisible');
-                        lblErrordni.classList.add('visible'); 
-                        lblErrordni.innerHTML = rspta.messages.dni[0];
+                        document.getElementById("lblErrordni").classList.remove('invisible');
+                        document.getElementById("lblErrordni").classList.add('visible'); 
+                        document.getElementById("lblErrordni").innerHTML = rspta.messages.dni[0];
                     } else {
-                        lblErrordni.classList.remove('visible');
-                        lblErrordni.classList.add('invisible'); 
+                        if(Rdni != null) {
+                            document.getElementById("lblErrordni").classList.remove('visible');
+                            document.getElementById("lblErrordni").classList.add('invisible'); 
+                        }
                     }
 
                     if(rspta.messages.correoElectronico != undefined){
-                        lblErrorcorreoElectronico.classList.remove('invisible');
-                        lblErrorcorreoElectronico.classList.add('visible'); 
-                        lblErrorcorreoElectronico.innerHTML = rspta.messages.correoElectronico[0];
+                        document.getElementById("lblErrorcorreoElectronico").classList.remove('invisible');
+                        document.getElementById("lblErrorcorreoElectronico").classList.add('visible'); 
+                        document.getElementById("lblErrorcorreoElectronico").innerHTML = rspta.messages.correoElectronico[0];
                     } else {
-                        lblErrorcorreoElectronico.classList.remove('visible');
-                        lblErrorcorreoElectronico.classList.add('invisible'); 
+                        if(RcorreoElectronico != null) {
+                            document.getElementById("lblErrorcorreoElectronico").classList.remove('visible');
+                            document.getElementById("lblErrorcorreoElectronico").classList.add('invisible'); 
+                        }   
                     }
 
                     if(rspta.messages.numeroCelular != undefined){
-                        lblErrornumeroCelular.classList.remove('invisible');
-                        lblErrornumeroCelular.classList.add('visible'); 
-                        lblErrornumeroCelular.innerHTML = rspta.messages.numeroCelular[0];
+                        document.getElementById("lblErrornumeroCelular").classList.remove('invisible');
+                        document.getElementById("lblErrornumeroCelular").classList.add('visible'); 
+                        document.getElementById("lblErrornumeroCelular").innerHTML = rspta.messages.numeroCelular[0];
                     } else {
-                        lblErrornumeroCelular.classList.remove('visible');
-                        lblErrornumeroCelular.classList.add('invisible'); 
+                        if(RnumeroCelular != null) {
+                            document.getElementById("lblErrornumeroCelular").classList.remove('visible');
+                            document.getElementById("lblErrornumeroCelular").classList.add('invisible'); 
+                        }
                     }
 
                     if(rspta.messages.tipoIngresos != undefined){
-                        lblErrortipoIngresos.classList.remove('invisible');
-                        lblErrortipoIngresos.classList.add('visible'); 
-                        lblErrortipoIngresos.innerHTML = rspta.messages.tipoIngresos[0];
+                        document.getElementById("lblErrortipoIngresos").classList.remove('invisible');
+                        document.getElementById("lblErrortipoIngresos").classList.add('visible'); 
+                        document.getElementById("lblErrortipoIngresos").innerHTML = rspta.messages.tipoIngresos[0];
                     } else {
-                        lblErrortipoIngresos.classList.remove('visible');
-                        lblErrortipoIngresos.classList.add('invisible'); 
+                        if(RtipoIngresos != null) {
+                            document.getElementById("lblErrortipoIngresos").classList.remove('visible');
+                            document.getElementById("lblErrortipoIngresos").classList.add('invisible'); 
+                        }
                     }
 
                     if(rspta.messages.departamento != undefined){
-                        lblErrordepartamento.classList.remove('invisible');
-                        lblErrordepartamento.classList.add('visible'); 
-                        lblErrordepartamento.innerHTML = rspta.messages.departamento[0];
+                        document.getElementById("lblErrordepartamento").classList.remove('invisible');
+                        document.getElementById("lblErrordepartamento").classList.add('visible'); 
+                        document.getElementById("lblErrordepartamento").innerHTML = rspta.messages.departamento[0];
                     } else {
-                        lblErrordepartamento.classList.remove('visible');
-                        lblErrordepartamento.classList.add('invisible'); 
+                        if(Rdepartamento != null) {
+                            document.getElementById("lblErrordepartamento").classList.remove('visible');
+                            document.getElementById("lblErrordepartamento").classList.add('invisible'); 
+                        }
+                    }
+
+                    if(rspta.messages.nombrePersona != undefined){
+                        document.getElementById("lblErrornombrePersona").classList.remove('invisible');
+                        document.getElementById("lblErrornombrePersona").classList.add('visible'); 
+                        document.getElementById("lblErrornombrePersona").innerHTML = rspta.messages.nombrePersona[0];
+                    } else {
+                        if(RnombrePersona != null) {
+                            document.getElementById("lblErrornombrePersona").classList.remove('visible');
+                            document.getElementById("lblErrornombrePersona").classList.add('invisible'); 
+                        }
+                    }
+                    
+                    if(rspta.messages.textoAdicional != undefined){
+                        document.getElementById("lblErrortextoAdicional").classList.remove('invisible');
+                        document.getElementById("lblErrortextoAdicional").classList.add('visible'); 
+                        document.getElementById("lblErrortextoAdicional").innerHTML = rspta.messages.textoAdicional[0];
+                    } else {
+                        if(RtextoAdicional != null) {
+                            document.getElementById("lblErrortextoAdicional").classList.remove('visible');
+                            document.getElementById("lblErrortextoAdicional").classList.add('invisible'); 
+                        }
                     }
 
                     if(rspta.messages.acepto != undefined){
-                        lblErroracepto.classList.remove('invisible');
-                        lblErroracepto.classList.add('visible'); 
-                        lblErroracepto.innerHTML = rspta.messages.acepto[0];
+                        document.getElementById("lblErroracepto").classList.remove('invisible');
+                        document.getElementById("lblErroracepto").classList.add('visible'); 
+                        document.getElementById("lblErroracepto").innerHTML = rspta.messages.acepto[0];
                     } else {
-                        lblErroracepto.classList.remove('visible');
-                        lblErroracepto.classList.add('invisible'); 
+                        if(Racepto != null) {
+                            document.getElementById("lblErroracepto").classList.remove('visible');
+                            document.getElementById("lblErroracepto").classList.add('invisible'); 
+                        }
                     }
 
                     if(rspta.messages.condiciones != undefined){
-                        lblErrorcondiciones.classList.remove('invisible');
-                        lblErrorcondiciones.classList.add('visible'); 
-                        lblErrorcondiciones.innerHTML = rspta.messages.condiciones[0];
+                        document.getElementById("lblErrorcondiciones").classList.remove('invisible');
+                        document.getElementById("lblErrorcondiciones").classList.add('visible'); 
+                        document.getElementById("lblErrorcondiciones").innerHTML = rspta.messages.condiciones[0];
                     } else {
-                        lblErrorcondiciones.classList.remove('visible');
-                        lblErrorcondiciones.classList.add('invisible'); 
+                        if(Rcondiciones != null) {
+                            document.getElementById("lblErrorcondiciones").classList.remove('visible');
+                            document.getElementById("lblErrorcondiciones").classList.add('invisible'); 
+                        }   
                     }
 
                     if(document.getElementById("departamento").value == 'lima'){
@@ -232,7 +306,7 @@
                             document.getElementById("lblErrordistrito_DEPARTAMENTO").classList.add('visible'); 
                             document.getElementById("lblErrordistrito_DEPARTAMENTO").innerHTML = rspta.messages.distrito[0];
                         } else {
-                            document.getElementById("lblErrordistrito_DEPARTAMENTO").classList.remove('visible');
+                            document.getElementById("lblErrordistrito_DEPARTAMENTO").style.display = 'none';
                             document.getElementById("lblErrordistrito_DEPARTAMENTO").classList.add('invisible'); 
                         }
                     }

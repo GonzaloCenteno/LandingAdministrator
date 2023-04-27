@@ -26,6 +26,8 @@ class FormularioLandingController extends Controller
             'distrito' => 'sometimes|required',
             'acepto' => 'sometimes|required|in:true',
             'condiciones' => 'sometimes|required|in:true', 
+            'nombrePersona' => 'sometimes|required',
+            'textoAdicional' => 'sometimes|required',
         ]);
          
         if ($validator->fails()) {
@@ -34,6 +36,26 @@ class FormularioLandingController extends Controller
                 'messages' => $validator->messages()
             ], 422); 
         }
+
+        $url_form ="https://getform.io/f/54fc2270-0e4b-47ec-a149-3c5a7ca80233";
+        $data1 = [
+            'dni'=>isset($request['dni']) ? $request['dni'] : '',
+            'correo'=>isset($request['correoElectronico']) ? $request['correoElectronico'] : '',
+            'celular'=>isset($request['numeroCelular']) ? $request['numeroCelular'] : '',
+            'ingresos'=>isset($request['tipoIngresos']) ? $request['tipoIngresos'] : '',
+            'departamento'=>isset($request['departamento']) ? $request['departamento'] : '',
+            'otros'=>isset($request['acepto']) ? $request['acepto'] : '',
+            'f07' => "",
+            'f08' => "",
+            'f09' => "",
+        ];
+
+        $ch2 = curl_init($url_form);
+        curl_setopt($ch2, CURLOPT_HTTPHEADER, ["Content-Type:multipart/form-data",]);
+        curl_setopt($ch2, CURLOPT_POSTFIELDS, $data1);
+        curl_setopt($ch2, CURLOPT_RETURNTRANSFER, true);
+        $response2 = curl_exec($ch2);
+        curl_close($ch2);
 
         return Response::json([
             'status' => true,
