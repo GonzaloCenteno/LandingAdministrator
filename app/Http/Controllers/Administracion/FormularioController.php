@@ -87,6 +87,7 @@ class FormularioController extends Controller
     {
         try{
             $imagen = $this->agregar_imagen($request->file('imagen'));
+            $imagenMovil = $this->agregar_imagenMovil($request->file('imagenMovil'));
 
             Elemento::where('ELEM_Id',1)
             ->update([
@@ -132,6 +133,15 @@ class FormularioController extends Controller
                 ]);
             }
 
+            if($imagenMovil)
+            {
+                File::delete((Elemento::select('ELEM_ValorGeneral')->where('ELEM_Id',12)->first())->ELEM_ValorGeneral);
+                Elemento::where('ELEM_Id',12)
+                ->update([
+                    'ELEM_ValorGeneral' => $imagenMovil
+                ]);
+            }
+
             return Response::json([
                 'status' => true,
                 'data' => 'OK'
@@ -148,6 +158,7 @@ class FormularioController extends Controller
     {
         try{
             $imagen = $this->agregar_imagen($request->file('imagen'));
+            $imagenMovil = $this->agregar_imagenMovil($request->file('imagenMovil'));
 
             Elemento::where('ELEM_Id',1)
             ->update([
@@ -193,6 +204,15 @@ class FormularioController extends Controller
                 ]);
             }
 
+            if($imagenMovil)
+            {
+                File::delete((Elemento::select('ELEM_ValorAhorro')->where('ELEM_Id',12)->first())->ELEM_ValorAhorro);
+                Elemento::where('ELEM_Id',12)
+                ->update([
+                    'ELEM_ValorAhorro' => $imagenMovil
+                ]);
+            }
+
             return Response::json([
                 'status' => true,
                 'data' => 'OK'
@@ -209,6 +229,7 @@ class FormularioController extends Controller
     {
         try{
             $imagen = $this->agregar_imagen($request->file('imagen'));
+            $imagenMovil = $this->agregar_imagenMovil($request->file('imagenMovil'));
 
             Elemento::where('ELEM_Id',1)
             ->update([
@@ -254,6 +275,15 @@ class FormularioController extends Controller
                 ]);
             }
 
+            if($imagenMovil)
+            {
+                File::delete((Elemento::select('ELEM_ValorCredito')->where('ELEM_Id',12)->first())->ELEM_ValorCredito);
+                Elemento::where('ELEM_Id',12)
+                ->update([
+                    'ELEM_ValorCredito' => $imagenMovil
+                ]);
+            }
+
             return Response::json([
                 'status' => true,
                 'data' => 'OK'
@@ -274,6 +304,21 @@ class FormularioController extends Controller
             $fileserver = $bandera.'_'.$filename;
             $imagen->move(public_path('portadas/'), htmlentities($fileserver));
             return 'portadas/'.$fileserver;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private function agregar_imagenMovil($imagen){
+        if($imagen)
+        {
+            $bandera = Str::random(12);
+            $filename = $imagen->getClientOriginalName();
+            $fileserver = $bandera.'_'.$filename;
+            $imagen->move(public_path('portadasMovil/'), htmlentities($fileserver));
+            return 'portadasMovil/'.$fileserver;
         }
         else
         {

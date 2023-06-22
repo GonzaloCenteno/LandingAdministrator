@@ -2,13 +2,23 @@
 @section('titulo', 'General')
 @section('contenido')
 
+<div id=portada class="oculto">
 @if (isset($portada))
-    <div class="wrap-login100-img" id="oculto">
+    <div class="wrap-login100-img" >
         <img src="{{ asset($portada->elemento->ELEM_ValorGeneral) }}">
     </div>
 @endif
+</div>
 
-<div class="wrap-login100" id="formulario" style="border:1px solid #b8b5b5; box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12); ">
+<div id=portadaMovil class="oculto">
+@if (isset($portadaMovil))
+    <div class="wrap-login100-img">
+        <img src="{{ asset($portadaMovil->elemento->ELEM_ValorGeneral) }}">
+    </div>
+@endif
+</div>
+
+<div class="wrap-login100 oculto" id="formulario" style="border:1px solid #b8b5b5; box-shadow: 0 0 24px 0 rgba(0, 0, 0, 0.12); ">
     <form role="form" class="php-email-form login100-form validate-form">
         @foreach ($datos as $dato)
             @switch($dato->elemento->ELEM_Tipo)
@@ -81,6 +91,21 @@
 
 @section('script-js')
 <script type="text/javascript">
+    
+    let portada = document.getElementById("portada");
+    let portadaMovil = document.getElementById("portadaMovil");
+
+    const esMovil = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (esMovil) {
+        portadaMovil.style.display = 'block';
+        portada.style.display = 'none';
+    }
+    else
+    {
+        portada.style.display = 'block';
+        portadaMovil.style.display = 'none';
+    }
+
     if(document.getElementById("elemento_INGRESO") != null)
     {
         document.getElementById("elemento_INGRESO").remove();
@@ -211,7 +236,7 @@
                 
                 if(rspta.status){
                     document.getElementById("gracias").style.display = "block";
-                    document.getElementById("oculto").style.display = "none";
+                    document.getElementsByClassName("oculto")[0].style.display = "none";
                     document.getElementById("formulario").style.display = "none";
                 } else {
                     if(rspta.messages.dni != undefined){

@@ -18,7 +18,8 @@ class AhorrosController extends Controller
         return view('landing.ahorros.index', [
             'datos' => $this->obtenerDatosLanding(),
             'departamentos' => $this->obtenerDepartamentos(),
-            'portada' => $this->obtenerPortada()
+            'portada' => $this->obtenerPortada(),
+            'portadaMovil' => $this->obtenerPortadaMovil()
         ]);
     }
 
@@ -32,6 +33,10 @@ class AhorrosController extends Controller
 
     private function obtenerPortada() {
         return FormularioElemento::with('elemento')->where([['FORM_Id',2],['ELEM_Id',2]])->first();
+    }
+
+    private function obtenerPortadaMovil() {
+        return FormularioElemento::with('elemento')->where([['FORM_Id',2],['ELEM_Id',12]])->first();
     }
 
     public function show($id,Request $request)

@@ -133,7 +133,6 @@ header{
     width: 592px;
     height: 271px;
     background-repeat:no-repeat;
-    background:url(../images/imagen2.png);
     background-size:cover;
   }
 
@@ -436,7 +435,6 @@ input[type="checkbox"] {
     width: 592px;
     height: 271px;
     background-repeat:no-repeat;
-    background:url(../images/imagen2.png);
     background-size:cover;
     margin-top: -40px;
 }
@@ -474,7 +472,6 @@ input[type="checkbox"] {
     width: 400px;
     height: 165px;
     background-repeat:no-repeat;
-    background:url(../images/imagen2.png);
     background-size:cover;
     margin-top: -40px;
 }

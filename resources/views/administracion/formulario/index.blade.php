@@ -4054,6 +4054,14 @@
                             <label for="imgPrincipal" class="form-label">Imagen Portada:</label>
                             <input class="form-control" type="file" id="imgPrincipal" name="imgPrincipal" accept="image/*">
                         </div>
+
+                        <div class="mb-3">
+                            <img id="imgPortadaMovil" class="img-thumbnail rounded mx-auto d-block" width="20%">
+                        </div>
+                        <div class="mb-3">
+                            <label for="imgPrincipalMovil" class="form-label">Imagen Movil:</label>
+                            <input class="form-control" type="file" id="imgPrincipalMovil" name="imgPrincipalMovil" accept="image/*">
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -4078,6 +4086,7 @@
         let txtCorreoElectronico = document.getElementById('txtCorreoElectronico');
         let txtNumeroCelular = document.getElementById('txtNumeroCelular');
         let imgPortada = document.getElementById('imgPortada');
+        let imgPortadaMovil = document.getElementById('imgPortadaMovil');
         let txtTextoAdicional = document.getElementById('txtTextoAdicional');
         let txtNombrePersona = document.getElementById('txtNombrePersona');
 
@@ -4146,7 +4155,11 @@
                         }
                     break;
                     case 'I': 
-                        imgPortada.src = data.Valor;
+                        if(data.ELEM_Id == 2) {
+                            imgPortada.src = data.Valor;
+                        } else if (data.ELEM_Id == 12) {
+                            imgPortadaMovil.src = data.Valor;
+                        } 
                     break;
                     default: ''
                 }
@@ -4174,6 +4187,7 @@
         var token = document.head.querySelector("[name='csrf-token'][content]").content;
         let titulo = document.getElementById('txttitulo');
         let imgPrincipal = document.getElementById('imgPrincipal');
+        let imgPrincipalMovil = document.getElementById('imgPrincipalMovil');
         let txtDni = document.getElementById('txtDni');
         let txtCorreoElectronico = document.getElementById('txtCorreoElectronico');
         let txtNumeroCelular = document.getElementById('txtNumeroCelular');
@@ -4197,6 +4211,7 @@
             formData.append('correoElectronico', txtCorreoElectronico.value);
             formData.append('numeroCelular', txtNumeroCelular.value);
             formData.append('imagen', imgPrincipal.files[0]);
+            formData.append('imagenMovil', imgPrincipalMovil.files[0]);
             formData.append('nombrePersona', txtNombrePersona.value);
             formData.append('textoAdicional', txtTextoAdicional.value);
             formData.append('slcDni', slcDni.value);
@@ -4223,6 +4238,7 @@
             let rspta = JSON.parse(response);
             document.getElementById('txttitulo').value = '';
             document.getElementById('imgPrincipal').value = '';
+            document.getElementById('imgPrincipalMovil').value = '';
             if(rspta.status){
                 modalFormulario.hide();
             }
